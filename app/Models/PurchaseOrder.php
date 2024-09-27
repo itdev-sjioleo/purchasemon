@@ -9,12 +9,17 @@ class PurchaseOrder extends Model
 {
     use HasFactory;
 
-    protected $connection = "sqlsrv";
+    protected $connection = "ascend";
     protected $table = "dbo.AP_PurchaseOrders";
     protected $primaryKey = 'POID';
 
-    public function PurchaseOrderItem()
+    public function poitems()
     {
         return $this->hasMany(PurchaseOrderItem::class, 'POID', 'POID');
+    }
+
+    public function pis()
+    {
+        return AP_Purchases::where('PONumbers', 'LIKE', '%'.$this->PONumber.'%')->where('Void', 0)->get();
     }
 }

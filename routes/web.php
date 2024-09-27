@@ -19,6 +19,7 @@ Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name
 
 Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/', 'App\Http\Controllers\MainController@index');
+    Route::get('detail/{pr_id}', 'App\Http\Controllers\MainController@detail');
     Route::get('main', 'App\Http\Controllers\MainController@index');
     Route::get('main-datatable', 'App\Http\Controllers\MainController@datatable');
     Route::get('main-export', 'App\Http\Controllers\MainController@export');

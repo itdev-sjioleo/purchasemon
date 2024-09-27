@@ -2,7 +2,9 @@
 
 @section('title', 'Purchase Monitoring')
 
+
 @section('styles')
+    <!-- <link rel="stylesheet" href="http://cdn.datatables.net/fixedcolumns/3.2.6/css/fixedColumns.dataTables.min.css"> -->
     <style>
         table {
             font-size: .8rem;
@@ -13,10 +15,10 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="d-flex flex-row align-items-end" style="gap: 2rem">
+            <div class="d-flex flex-row align-items-end flex-wrap" style="gap: 2rem">
                 <div>
                     <p class="font-weight-bold">PR Process Date</p>
-                    <div class="d-inline-flex align-items-center" style="gap: 1rem">
+                    <div class="d-inline-flex align-items-center flex-wrap" style="gap: 1rem">
                         <div>
                             From
                         </div>
@@ -55,19 +57,27 @@
                     </select>
                 </div>
                 <div>
+                    <p class="font-weight-bold">Closed Status</p>
+                    <select id="filter-closed" class="form-control form-control-sm" aria-label="Default select example">
+                        <option value="ALL" selected>ALL</option>
+                        <option value="0">Open</option>
+                        <option value="1">Close</option>
+                    </select>
+                </div>
+                <div>
                     <button id="btn-filter" class="btn btn-primary btn-sm">Filter</button>
                 </div>
             </div>
             <hr>
-            <table id="table-main" class="table table-striped table-bordered text-nowrap">
+            <table id="table-main" class="table table-bordered text-nowrap display" width="100%">
                 <thead>
                     <tr>
-                        <th>Department</th>
+                        <!-- <th>Department</th> -->
                         <th>Purchase Request</th>
-                        <th>Inquiry</th>
+                        <th>Inquiry / VASF</th>
                         <th>Purchase Order</th>
                         <th>Goods Receiving</th>
-                        <th>Total Leased Time</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -77,6 +87,7 @@
 @endsection
 
 @section('scripts')
+    <!-- <script src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script> -->
     <script>
         let table = null;
 
@@ -91,31 +102,39 @@
                             pr_date_start: $('#filter-pr-date-start').val(),
                             pr_date_end: $('#filter-pr-date-end').val(),
                             pr_department: $('#filter-department').val(),
+                            pr_closed: $('#filter-closed').val(),
                         };
                     }
                 },
-                order: [[1, 'asc']],
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                ],
+                fixedColumns: {
+                    start: 1,
+                },
+                // responsive: true,
+                order: [[0, 'asc']],
                 // ordering: false,
                 stateSave: false,
                 pageLength: 100,
                 lengthMenu: [ [100, -1], [100, "All"] ],
                 columns: [
-                    {
-                        data: 'PRRequestByName',
-                        orderable: false,
-                    },
+                    // {
+                    //     data: 'PRRequestByName',
+                    //     orderable: false,
+                    // },
                     {
                         // Purchase Request Column
                         data: 'PRNumber',
                         render: (data, _, row) => {
                             if (data) {
-                                return `
-                                    PR Number: ${row.PRNumber}<br>
+                                return `<div>
+                                    <a href="{{ url('detail') }}/${row.PRID}"><strong>${row.PRNumber}</strong></a><br>
                                     Item Quantity: ${row.PRItemCount}<br>
-                                    Create Date: ${moment(row.PRCreateDate).format('DD/MM/YYYY')}<br>
-                                    Process Date: ${row.PRApprovedDateTime ? moment(row.PRApprovedDateTime).format('DD/MM/YYYY') : '-'}<br>
-                                    Leased Time: ${Math.ceil(moment(row.PRApprovedDateTime ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true))} Days
-                                `;
+                                    Create Date: ${moment(row.PRCreateDate).format('DD/MM/YYYY HH:mm')}<br>
+                                    Process Date: ${row.PRApprovedDateTime ? moment(row.PRApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
+                                    Duration Time: ${Math.ceil(moment(row.PRApprovedDateTime ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true))} Days
+                                </div>`;
                             } else {
                                 return '';
                             }
@@ -126,13 +145,13 @@
                         data: 'InquiryNumber',
                         render: (data, _, row) => {
                             if (data) {
-                                return `
-                                    Inquiry Number: ${row.InquiryNumber}<br>
+                                return `<div>
+                                    <strong>${row.InquiryNumber}</strong><br>
                                     Item Quantity: ${row.InqItemCount}<br>
-                                    Create Date: ${moment(row.InqCreateDate).format('DD/MM/YYYY')}<br>
-                                    Process Date: ${row.InqApprovedDateTime ? moment(row.InqApprovedDateTime).format('DD/MM/YYYY') : '-'}<br>
-                                    Leased Time: ${Math.ceil(moment(row.InqApprovedDateTime ?? Date.now()).diff(moment(row.InqCreateDate), 'days', true))} Days
-                                `;
+                                    Create Date: ${moment(row.InqCreateDate).format('DD/MM/YYYY HH:mm')}<br>
+                                    Process Date: ${row.InqApprovedDateTime ? moment(row.InqApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
+                                    Duration Time: ${Math.ceil(moment(row.InqApprovedDateTime ?? Date.now()).diff(moment(row.InqCreateDate), 'days', true))} Days
+                                </div>`;
                             } else {
                                 return '';
                             }
@@ -143,14 +162,14 @@
                         data: 'PONumber',
                         render: (data, _, row) => {
                             if (data) {
-                                return `
-                                    PO Number: ${row.PONumber}<br>
+                                return `<div>
+                                    <strong>${row.PONumber}</strong><br>
                                     Item Quantity: ${row.POItemCount}<br>
-                                    Create Date: ${moment(row.POCreateDate).format('DD/MM/YYYY')}<br>
-                                    Manager Approve Date: ${row.POManApprovedDateTime ? moment(row.POManApprovedDateTime).format('DD/MM/YYYY') : '-'}<br>
-                                    Director Approve Date: ${row.PODirApprovedDateTime ? moment(row.PODirApprovedDateTime).format('DD/MM/YYYY') : '-'}<br>
-                                    Leased Time: ${Math.ceil(moment(row.PODirApprovedDateTime ?? Date.now()).diff(moment(row.POCreateDate), 'days', true))} Days
-                                `;
+                                    Create Date: ${moment(row.POCreateDate).format('DD/MM/YYYY HH:mm')}<br>
+                                    Manager Approve Date: ${row.POManApprovedDateTime ? moment(row.POManApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
+                                    Director Approve Date: ${row.PODirApprovedDateTime ? moment(row.PODirApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
+                                    Duration Time: ${Math.ceil(moment(row.PODirApprovedDateTime ?? Date.now()).diff(moment(row.POCreateDate), 'days', true))} Days
+                                </div>`;
                             } else {
                                 return '';
                             }
@@ -161,11 +180,11 @@
                         data: 'PurchaseNumber',
                         render: (data, _, row) => {
                             if (data) {
-                                return `
-                                    GRN Number: ${row.PurchaseNumber}<br>
+                                return `<div>
+                                    <strong>${row.PurchaseNumber}</strong><br>
                                     Item Quantity: ${row.PIItemCount}<br>
-                                    Create Date: ${moment(row.PICreateDate).format('DD/MM/YYYY')}
-                                `;
+                                    Create Date: ${moment(row.PICreateDate).format('DD/MM/YYYY HH:mm')}
+                                </div>`;
                             } else {
                                 return '';
                             }
@@ -175,7 +194,27 @@
                         data: 'PRNumber',
                         orderable: false,
                         render: (data, _, row) => {
-                            return Math.ceil(moment(row.PICreateDate ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true)) + ' Days';
+                            return `<div>
+                                <strong>PR Process - Created PO</strong><br> ${
+                                    row.PRApprovedDateTime ? `
+                                        <span class="badge badge-${Math.ceil(moment(row.POCreateDate ?? Date.now()).diff(moment(row.PRApprovedDateTime), 'days', true)) > 7 ? 'danger' : 'success'}">
+                                            ${Math.ceil(moment(row.POCreateDate ?? Date.now()).diff(moment(row.PRApprovedDateTime), 'days', true))} Days
+                                        </span>
+                                    ` : '-'
+                                }<br><br>
+                                <strong>Total Length of Time</strong><br> ${Math.ceil(moment(row.PICreateDate ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true))} Days
+                                <br><br>
+                                <strong>Status</strong><br>
+                                ${!row.PRApprovedDateTime ? 'PR Waiting to Processed by Procurement' : (
+                                    !row.InqApprovedDateTime ? 'Inquiry Waiting Approval' : (
+                                        !row.POManApprovedDateTime ? 'PO Waiting Manager Approval' : (
+                                            !row.PODirApprovedDateTime ? 'PO Waiting Director Approval' : (
+                                                row.PICreateDate ? 'Goods Received' : ''
+                                            )
+                                        )
+                                    )
+                                )}
+                            </div>`;
                         }
                     }
                 ],

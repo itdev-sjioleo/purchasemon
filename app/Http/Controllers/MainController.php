@@ -8,12 +8,19 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Services\DataTable;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\MainExport;
+use App\Models\PurchaseRequest;
 
 class MainController extends Controller
 {
     public function index()
     {
         return view('main');
+    }
+
+    public function detail($pr_id)
+    {
+        $purchase_request = PurchaseRequest::find($pr_id);
+        return view('detail', compact('purchase_request'));
     }
 
     public function datatable(Request $request)
@@ -33,6 +40,10 @@ class MainController extends Controller
 
         if ($filters['pr_department'] && $filters['pr_department'] != 'ALL_DEPARTMENT') {
             $query->where('PRRequestByName', '=', $filters['pr_department']);
+        }
+
+        if ($filters['pr_closed'] && $filters['pr_closed'] != 'ALL') {
+            $query->where('PRClosed', '=', $filters['pr_closed']);
         }
 
         $datatable = datatables($query);

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ url('public/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ url('public/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ url('public/adminlte/css/adminlte.min.css?v=3.2.0') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.bootstrap4.min.css">
     <style>
         .datatable-overflow-scroll {
             width: 100%;
@@ -120,6 +121,8 @@
     <script src="{{ url('public/adminlte/js/adminlte.min.js?v=3.2.0') }}"></script>
     <script src="{{ url('public/plugins/moment/moment.min.js') }}"></script>
     <!-- <script src="{{ url('public/plugins/jquery.doubleScroll.js') }}"></script> -->
+    <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.1/js/responsive.bootstrap4.min.js"></script>
     <script>
         const baseURL = "{{ url('/') }}";
 
