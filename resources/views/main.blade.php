@@ -21,19 +21,19 @@
                             From
                         </div>
                         <div>
-                            <input id="filter-pr-date-start" type="date" class="form-control">
+                            <input id="filter-pr-date-start" type="date" class="form-control form-control-sm">
                         </div>
                         <div>
                             To
                         </div>
                         <div>
-                            <input id="filter-pr-date-end" type="date" class="form-control">
+                            <input id="filter-pr-date-end" type="date" class="form-control form-control-sm">
                         </div>
                     </div>
                 </div>
                 <div>
                     <p class="font-weight-bold">Department</p>
-                    <select id="filter-department" class="form-control" aria-label="Default select example">
+                    <select id="filter-department" class="form-control form-control-sm" aria-label="Default select example">
                         <option value="ALL_DEPARTMENT" selected>ALL DEPARTMENT</option>
                         <option value="REF & FRAC">REF & FRAC</option>
                         <option value="TANK FARM">TANK FARM</option>
@@ -55,7 +55,7 @@
                     </select>
                 </div>
                 <div>
-                    <button id="btn-filter" class="btn btn-primary">Filter</button>
+                    <button id="btn-filter" class="btn btn-primary btn-sm">Filter</button>
                 </div>
             </div>
             <hr>
@@ -204,9 +204,10 @@
                     //     });
                 },
                 dom: `
-                    <'row justify-content-between'
-                        <'col-auto'l>
+                    <'row'
+                        <'col-auto flex-grow-1'l>
                         <'col-auto'f>
+                        <'col-auto'B>
                     >
                     <'row'
                         <'col-sm-12'tr>
@@ -220,7 +221,7 @@
                     {
                         extend: 'excel',
                         text: 'Export All',
-                        className: 'btn btn-primary',
+                        className: 'btn btn-primary btn-sm',
                         action: function () {
                             window.location.href = baseURL + '/main-export';
                         }
