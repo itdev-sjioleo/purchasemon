@@ -14,7 +14,12 @@ class MainController extends Controller
 {
     public function index()
     {
-        return view('main');
+        return view('master');
+    }
+
+    public function summary()
+    {
+        return view('summary');
     }
 
     public function detail($pr_id)
@@ -31,11 +36,39 @@ class MainController extends Controller
             ->where('PRRequestTo', 'PROCUREMENT');
         
         if ($filters['pr_date_start']) {
-            $query->where('PRApprovedDateTime', '>=', $filters['pr_date_start']);
+            $query->where('PRCreateDate', '>=', $filters['pr_date_start']);
         }
 
         if ($filters['pr_date_end']) {
-            $query->where('PRApprovedDateTime', '<=', $filters['pr_date_end']);
+            $query->where('PRCreateDate', '<=', $filters['pr_date_end']);
+        }
+
+        if ($filters['pr_department'] && $filters['pr_department'] != 'ALL_DEPARTMENT') {
+            $query->where('PRRequestByName', '=', $filters['pr_department']);
+        }
+
+        if ($filters['pr_closed'] && $filters['pr_closed'] != 'ALL') {
+            $query->where('PRClosed', '=', $filters['pr_closed']);
+        }
+
+        $datatable = datatables($query);
+
+        return $datatable->toJson();
+    }
+
+    public function summaryDatatable(Request $request)
+    {
+        $filters = $request->get('filters');
+
+        $query = DB::connection('ascend')->table('dbo.VIEW_SJIO_PURCHASEMON_SUMMARY')
+            ->where('PRRequestTo', 'PROCUREMENT');
+        
+        if ($filters['pr_date_start']) {
+            $query->where('PRCreateDate', '>=', $filters['pr_date_start']);
+        }
+
+        if ($filters['pr_date_end']) {
+            $query->where('PRCreateDate', '<=', $filters['pr_date_end']);
         }
 
         if ($filters['pr_department'] && $filters['pr_department'] != 'ALL_DEPARTMENT') {
@@ -53,6 +86,11 @@ class MainController extends Controller
 
     public function export(Request $request)
     {
-        return (new MainExport())->download('Purchase Monitoring.xlsx');
+        return (new MainExport())->download('Purchase Monitoring Master.xlsx');
+    }
+
+    public function summaryExport(Request $request)
+    {
+        return (new SummaryExport())->download('Purchase Monitoring Summary.xlsx');
     }
 }

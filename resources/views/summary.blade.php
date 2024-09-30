@@ -17,7 +17,7 @@
         <div class="card-body">
             <div class="d-flex flex-row align-items-end flex-wrap" style="gap: 2rem">
                 <div>
-                    <p class="font-weight-bold">PR Process Date</p>
+                    <p class="font-weight-bold">PR Create Date</p>
                     <div class="d-inline-flex align-items-center flex-wrap" style="gap: 1rem">
                         <div>
                             From
@@ -69,15 +69,14 @@
                 </div>
             </div>
             <hr>
-            <table id="table-main" class="table table-bordered text-nowrap display" width="100%">
+            <table id="table-summary" class="table table-bordered text-nowrap display" width="100%">
                 <thead>
                     <tr>
-                        <!-- <th>Department</th> -->
                         <th>Purchase Request</th>
-                        <th>Inquiry / VASF</th>
-                        <th>Purchase Order</th>
-                        <th>Goods Receiving</th>
-                        <th>Status</th>
+                        <th>Inquired</th>
+                        <th>PO Issued</th>
+                        <th>PO Approved</th>
+                        <th>Good Received</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -92,11 +91,11 @@
         let table = null;
 
         $(document).ready(function() {
-            table = $('#table-main').DataTable({
+            table = $('#table-summary').DataTable({
                 serverSide: true,
                 processing: true,
                 ajax: {
-                    url: "{{ url('/') }}" + '/main-datatable',
+                    url: "{{ url('/') }}" + '/summary-datatable',
                     data: function(d) {
                         d.filters = {
                             pr_date_start: $('#filter-pr-date-start').val(),
@@ -119,104 +118,66 @@
                 pageLength: 100,
                 lengthMenu: [ [100, -1], [100, "All"] ],
                 columns: [
-                    // {
-                    //     data: 'PRRequestByName',
-                    //     orderable: false,
-                    // },
                     {
                         // Purchase Request Column
                         data: 'PRNumber',
                         render: (data, _, row) => {
-                            if (data) {
-                                return `<div>
-                                    <a href="{{ url('detail') }}/${row.PRID}"><strong>${row.PRNumber}</strong></a><br>
-                                    Item Quantity: ${row.PRItemCount}<br>
-                                    Create Date: ${moment(row.PRCreateDate).format('DD/MM/YYYY HH:mm')}<br>
-                                    Process Date: ${row.PRApprovedDateTime ? moment(row.PRApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
-                                    Duration Time: ${Math.ceil(moment(row.PRApprovedDateTime ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true))} Days
-                                </div>`;
-                            } else {
-                                return '';
-                            }
+                            return `<div>
+                                <a href="{{ url('detail') }}/${row.PRID}"><strong>${row.PRNumber}</strong></a><br>
+                                ${row.PRImportance}<br>
+                                ${row.PRItemCount} Item</br>
+                                Processed at ${moment(row.PRApprovedDateTime).format('DD/MM/YYYY HH:mm')}
+                            </div>`;
                         }
                     },
                     {
                         // Inquiry Column
-                        data: 'InquiryNumber',
                         render: (data, _, row) => {
-                            if (data) {
-                                return `<div>
-                                    <strong>${row.InquiryNumber}</strong><br>
-                                    Item Quantity: ${row.InqItemCount}<br>
-                                    Create Date: ${moment(row.InqCreateDate).format('DD/MM/YYYY HH:mm')}<br>
-                                    Process Date: ${row.InqApprovedDateTime ? moment(row.InqApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
-                                    Duration Time: ${Math.ceil(moment(row.InqApprovedDateTime ?? Date.now()).diff(moment(row.InqCreateDate), 'days', true))} Days
-                                </div>`;
-                            } else {
-                                return '';
-                            }
+                            return `<div>
+                                <strong>${row.InqItemCount} / ${row.PRItemCount} Item</strong><br>
+                                ${row.InqLastTime ?
+                                    `Last Inquired at ${moment(row.InqLastTime).format('DD/MM/YYYY HH:mm')}`
+                                    : ''
+                                }
+                            </div>`;
                         }
                     },
                     {
                         // Purchase Order Column
-                        data: 'PONumber',
                         render: (data, _, row) => {
-                            if (data) {
-                                return `<div>
-                                    <strong>${row.PONumber}</strong><br>
-                                    Item Quantity: ${row.POItemCount}<br>
-                                    Create Date: ${moment(row.POCreateDate).format('DD/MM/YYYY HH:mm')}<br>
-                                    Manager Approve Date: ${row.POManApprovedDateTime ? moment(row.POManApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
-                                    Director Approve Date: ${row.PODirApprovedDateTime ? moment(row.PODirApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
-                                    Duration Time: ${Math.ceil(moment(row.PODirApprovedDateTime ?? Date.now()).diff(moment(row.POCreateDate), 'days', true))} Days
-                                </div>`;
-                            } else {
-                                return '';
-                            }
+                            return `<div>
+                                <strong>${row.POItemCount} / ${row.PRItemCount} Item</strong><br>
+                                ${row.POLastTime ?
+                                    `Last PO Issued at ${moment(row.POLastTime).format('DD/MM/YYYY HH:mm')}`
+                                    : ''
+                                }
+                            </div>`;
+                        }
+                    },
+                    {
+                        // Purchase Order Approved Column
+                        render: (data, _, row) => {
+                            return `<div>
+                                <strong>${row.POApproveItemCount} / ${row.PRItemCount} Item</strong><br>
+                                ${row.POApproveLastTime ?
+                                    `Last PO Approved at ${moment(row.POApproveLastTime).format('DD/MM/YYYY HH:mm')}`
+                                    : ''
+                                }
+                            </div>`;
                         }
                     },
                     {
                         // Purchase Invoice Column
-                        data: 'PurchaseNumber',
-                        render: (data, _, row) => {
-                            if (data) {
-                                return `<div>
-                                    <strong>${row.PurchaseNumber}</strong><br>
-                                    Item Quantity: ${row.PIItemCount}<br>
-                                    Create Date: ${moment(row.PICreateDate).format('DD/MM/YYYY HH:mm')}
-                                </div>`;
-                            } else {
-                                return '';
-                            }
-                        }
-                    },
-                    {
-                        data: 'PRNumber',
-                        orderable: false,
                         render: (data, _, row) => {
                             return `<div>
-                                <strong>PR Process - Created PO</strong><br> ${
-                                    row.PRApprovedDateTime ? `
-                                        <span class="badge badge-${Math.ceil(moment(row.POCreateDate ?? Date.now()).diff(moment(row.PRApprovedDateTime), 'days', true)) > 7 ? 'danger' : 'success'}">
-                                            ${Math.ceil(moment(row.POCreateDate ?? Date.now()).diff(moment(row.PRApprovedDateTime), 'days', true))} Days
-                                        </span>
-                                    ` : '-'
-                                }<br><br>
-                                <strong>Total Length of Time</strong><br> ${Math.ceil(moment(row.PICreateDate ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true))} Days
-                                <br><br>
-                                <strong>Status</strong><br>
-                                ${!row.PRApprovedDateTime ? 'PR Waiting to Processed by Procurement' : (
-                                    !row.InqApprovedDateTime ? 'Inquiry Waiting Approval' : (
-                                        !row.POManApprovedDateTime ? 'PO Waiting Manager Approval' : (
-                                            !row.PODirApprovedDateTime ? 'PO Waiting Director Approval' : (
-                                                row.PICreateDate ? 'Goods Received' : ''
-                                            )
-                                        )
-                                    )
-                                )}
+                                <strong>${row.PIItemCount} / ${row.PRItemCount} Item</strong><br>
+                                ${row.PILastTime ?
+                                    `Last Received at ${moment(row.PILastTime).format('DD/MM/YYYY HH:mm')}`
+                                    : ''
+                                }
                             </div>`;
                         }
-                    }
+                    },
                 ],
                 scrollCollapse: true,
                 scrollX: true,
@@ -262,7 +223,7 @@
                         text: 'Export All',
                         className: 'btn btn-primary btn-sm',
                         action: function () {
-                            window.location.href = baseURL + '/main-export';
+                            window.location.href = baseURL + '/summary-export';
                         }
                     },
                 ],

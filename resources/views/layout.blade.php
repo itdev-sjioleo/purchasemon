@@ -52,6 +52,25 @@
                 </div>
 
                 <nav>
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <li class="nav-item">
+                            <a href="{{ url('/') }}" class="nav-link">
+                                <i class="nav-icon fas fa-file"></i>
+                                <p>
+                                    Purchase Monitoring<br>Report Master
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/summary') }}" class="nav-link">
+                                <i class="nav-icon fas fa-file"></i>
+                                <p>
+                                    Purchase Monitoring<br>Report Summary
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
                 </nav>
 
                 <div class="flex-grow-1"></div>

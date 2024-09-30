@@ -17,4 +17,9 @@ class PurchaseOrderItem extends Model
     {
         return $this->belongsTo(IC_Items::class, 'ItemID', 'ItemID');
     }
+
+    public function itemUOM()
+    {
+        return IC_UOM::find(IC_Items::find($this->ItemID)->{'UOMID'.$this->UOMLevel})->UOMCode;        
+    }
 }
