@@ -76,7 +76,12 @@ class MainController extends Controller
         }
 
         if ($filters['pr_closed'] && $filters['pr_closed'] != 'ALL') {
-            $query->where('PRClosed', '=', $filters['pr_closed']);
+            if($filters['pr_closed'] == 1) {
+                $query->where('PRClosed', '=', 1)
+                    ->orWhere('PRItemCount', '>', 'PIitemCount');
+            } else {
+                $query->where('PRClosed', '=', 0);
+            }
         }
 
         $datatable = datatables($query);

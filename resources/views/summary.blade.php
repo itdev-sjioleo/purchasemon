@@ -170,7 +170,7 @@
                         // Purchase Invoice Column
                         render: (data, _, row) => {
                             return `<div>
-                                <strong>${row.PIItemCount} / ${row.PRItemCount} Item</strong><br>
+                                <strong>${row.PIPercent * 100}%</strong><br>
                                 ${row.PILastTime ?
                                     `Last Received at ${moment(row.PILastTime).format('DD/MM/YYYY HH:mm')}`
                                     : ''
