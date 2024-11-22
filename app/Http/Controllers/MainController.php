@@ -32,8 +32,7 @@ class MainController extends Controller
     {
         $filters = $request->get('filters');
 
-        $query = DB::connection('ascend')->table('dbo.VIEW_SJIO_PURCHASEMON_MASTER')
-            ->where('PRRequestTo', 'PROCUREMENT');
+        $query = DB::connection('ascend')->table('dbo.VIEW_SJIO_PURCHASEMON_MASTER');
         
         if ($filters['pr_date_start']) {
             $query->where('PRCreateDate', '>=', $filters['pr_date_start']);
