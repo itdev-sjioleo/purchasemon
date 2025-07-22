@@ -17,6 +17,28 @@ class MainExport implements FromCollection, WithHeadings
     public function collection()
     {
         $query = DB::connection('ascend')->table('dbo.VIEW_SJIO_PURCHASEMON_MASTER')
+            ->select(
+                'PRNumber',
+                'PRCreateDate',
+                'PRApprovedDateTime',
+                'PRRequestByCode',
+                'PRRequestByName',
+                'PRItemCount',
+                'PRClosed',
+                'PRRequestTo',
+                'InquiryNumber',
+                'InqCreateDate',
+                'InqApprovedDateTime',
+                'InqItemCount',
+                'PONumber',
+                'POCreateDate',
+                'POManApprovedDateTime',
+                'PODirApprovedDateTime',
+                'POItemCount',
+                'PurchaseNumber',
+                'PICreateDate',
+                'PIItemCount'
+            )
             ->where('PRRequestTo', 'PROCUREMENT');
 
         return $query->get();

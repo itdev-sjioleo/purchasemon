@@ -194,26 +194,55 @@
                         data: 'PRNumber',
                         orderable: false,
                         render: (data, _, row) => {
+                            const PRApproved = row.PRApprovedDateTime != null;
+                            const InqApproved = row.InqApprovedDateTime != null;
+                            const POApprovedMan = row.POManApprovedBy != null;
+                            const POApprovedDir = row.PODirApprovedDateTime != null;
+                            const GoodReceived = row.PICreateDate != null;
+
+                            const POCreateToApproveMgrDays = Math.ceil(moment(row.POManApprovedDateTime).diff(moment(row.POCreateDate), 'days', true));
+                            const POApproveMgrToApproveDirDays = Math.ceil(moment(row.PODirApprovedDateTime).diff(moment(row.POManApprovedDateTime), 'days', true));
+                            const POApprovedDirToGoodReceived = Math.ceil(moment(row.PICreateDate).diff(moment(row.PODirApprovedDateTime), 'days', true));
+
                             return `<div>
-                                <strong>PR Process - Created PO</strong><br> ${
+                                <strong>PR Process to PO Created</strong><br> ${
                                     row.PRApprovedDateTime ? `
                                         <span class="badge badge-${Math.ceil(moment(row.POCreateDate ?? Date.now()).diff(moment(row.PRApprovedDateTime), 'days', true)) > 7 ? 'danger' : 'success'}">
                                             ${Math.ceil(moment(row.POCreateDate ?? Date.now()).diff(moment(row.PRApprovedDateTime), 'days', true))} Days
                                         </span>
-                                    ` : '-'
-                                }<br><br>
-                                <strong>Total Length of Time</strong><br> ${Math.ceil(moment(row.PICreateDate ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true))} Days
+                                    ` : ''
+                                }
+                                ${PRApproved ? '<span class="badge badge-success">PR Processed</span>' : '<span class="badge badge-danger">PR Waiting to Processed by Procurement</span>'}
+                                ${InqApproved ? '<span class="badge badge-success">Inquiry Approved</span>' : '<span class="badge badge-danger">Inquiry Waiting Approval</span>'}
                                 <br><br>
-                                <strong>Status</strong><br>
-                                ${!row.PRApprovedDateTime ? 'PR Waiting to Processed by Procurement' : (
-                                    !row.InqApprovedDateTime ? 'Inquiry Waiting Approval' : (
-                                        !row.POManApprovedDateTime ? 'PO Waiting Manager Approval' : (
-                                            !row.PODirApprovedDateTime ? 'PO Waiting Director Approval' : (
-                                                row.PICreateDate ? 'Goods Received' : ''
-                                            )
-                                        )
-                                    )
-                                )}
+                                <strong>PO Created to PO Approved Mgr</strong><br> ${
+                                    row.POManApprovedDateTime ? `
+                                        <span class="badge badge-${ POCreateToApproveMgrDays > 7 ? 'danger' : 'success'}">
+                                            ${POCreateToApproveMgrDays} Days
+                                        </span>
+                                    ` : ''
+                                }
+                                ${POApprovedMan ? '<span class="badge badge-success">PO Approved Manager</span>' : '<span class="badge badge-danger">PO Waiting Manager Approval</span>'}
+                                <br><br>
+                                <strong>PO Approved Mgr to PO Approved Dir</strong><br> ${
+                                    row.PODirApprovedDateTime ? `
+                                        <span class="badge badge-${ POApproveMgrToApproveDirDays > 7 ? 'danger' : 'success'}">
+                                            ${POApproveMgrToApproveDirDays} Days
+                                        </span>
+                                    ` : ''
+                                }
+                                ${POApprovedDir ? '<span class="badge badge-success">PO Approved Director</span>' : '<span class="badge badge-danger">PO Waiting Director Approval</span>'}
+                                <br><br>
+                                <strong>PO Approved Dir to Good Received</strong><br> ${
+                                    row.PICreateDate ? `
+                                        <span class="badge badge-${ POApprovedDirToGoodReceived > 7 ? 'danger' : 'success'}">
+                                            ${POApprovedDirToGoodReceived} Days
+                                        </span>
+                                    ` : ''
+                                }
+                                ${GoodReceived ? '<span class="badge badge-success">Goods Received</span>' : '<span class="badge badge-danger">Goods Not Yet Received</span>'}
+                                <br><br>
+                                <strong>Total Length of Time</strong><br> ${Math.ceil(moment(row.PICreateDate ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true))} Days
                             </div>`;
                         }
                     }
