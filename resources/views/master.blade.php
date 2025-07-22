@@ -196,7 +196,7 @@
                         render: (data, _, row) => {
                             const PRApproved = row.PRApprovedDateTime != null;
                             const InqApproved = row.InqApprovedDateTime != null;
-                            const POApprovedMan = row.POManApprovedBy != null;
+                            const POApprovedMan = (row.POManApprovedBy != null && row.POManApprovedBy != '');
                             const POApprovedDir = row.PODirApprovedDateTime != null;
                             const GoodReceived = row.PICreateDate != null;
 
