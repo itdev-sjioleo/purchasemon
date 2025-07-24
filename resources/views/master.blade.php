@@ -134,7 +134,7 @@
                             if (data) {
                                 return `<div>
                                     <a href="{{ url('detail') }}/${row.PRID}"><strong>${row.PRNumber}</strong></a><br><br>
-                                    ${ row.PRRemarks != '' ? '<p style="width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">'+row.PRRemarks+'</p>' : '' }
+                                    ${ row.PRRemarks != '' ? '<p style="white-space: normal;">'+row.PRRemarks+'</p>' : '' }
                                     <table class="table table-sm">
                                         <tr>
                                             <th>Item Quantity</th>
