@@ -16,7 +16,7 @@
 @endsection
 
 @section('content')
-    <div class="card">
+    <div class="card" style="max-width: 1920px; margin: 0 auto;">
         <div class="card-body">
             <div class="d-flex flex-row align-items-end flex-wrap" style="gap: 2rem">
                 <div>
