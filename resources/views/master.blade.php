@@ -72,8 +72,8 @@
                 </div>
             </div>
             <hr>
-            <table id="table-master" class="table table-bordered text-nowrap display" width="100%">
-                <thead>
+            <table id="table-master" class="table table-bordered table-striped text-nowrap display" width="100%">
+                <thead class="thead-dark">
                     <tr>
                         <!-- <th>Department</th> -->
                         <th>Purchase Request</th>
