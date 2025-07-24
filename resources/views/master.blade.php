@@ -76,11 +76,11 @@
                 <thead class="thead-dark">
                     <tr>
                         <!-- <th>Department</th> -->
-                        <th>Purchase Request</th>
-                        <th>Inquiry / VASF</th>
-                        <th>Purchase Order</th>
-                        <th>Goods Receiving</th>
-                        <th>Status</th>
+                        <th style="width: 363px">Purchase Request</th>
+                        <th style="width: 363px">Inquiry / VASF</th>
+                        <th style="width: 363px">Purchase Order</th>
+                        <th style="width: 363px">Goods Receiving</th>
+                        <th style="width: 363px">Summary</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -115,6 +115,7 @@
                 fixedColumns: {
                     start: 1,
                 },
+                autoWidth: false,
                 // responsive: true,
                 order: [[0, 'asc']],
                 // ordering: false,
@@ -132,11 +133,30 @@
                         render: (data, _, row) => {
                             if (data) {
                                 return `<div>
-                                    <a href="{{ url('detail') }}/${row.PRID}"><strong>${row.PRNumber}</strong></a><br>
-                                    Item Quantity: ${row.PRItemCount}<br>
-                                    Create Date: ${moment(row.PRCreateDate).format('DD/MM/YYYY HH:mm')}<br>
-                                    Process Date: ${row.PRApprovedDateTime ? moment(row.PRApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
-                                    Duration Time: ${ row.PRApprovedDateTime ? Math.ceil(moment(row.PRApprovedDateTime ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true)).toString()+' Days' : '-' }
+                                    <a href="{{ url('detail') }}/${row.PRID}"><strong>${row.PRNumber}</strong></a><br><br>
+                                    ${ row.PRRemarks != '' ? '<p style="width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">'+row.PRRemarks+'</p>' : '' }
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <th>Item Quantity</th>
+                                            <td>${row.PRItemCount}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Create Date</th>
+                                            <td>${moment(row.PRCreateDate).format('DD/MM/YYYY HH:mm')}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Mgr Approve</th>
+                                            <td>${ row.PRManApprovedBy ? row.PRManApprovedBy+' at ' : '' } ${row.PRManApprovedDateTime ? moment(row.PRManApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Procurement Process</th>
+                                            <td>${ row.PRApprovedBy ? row.PRApprovedBy+' at ' : '' } ${row.PRApprovedDateTime ? moment(row.PRApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Duration Time</th>
+                                            <td>${ row.PRApprovedDateTime ? Math.ceil(moment(row.PRApprovedDateTime ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true)).toString()+' Days' : '-' }</td>
+                                        </tr>
+                                    </table>
                                 </div>`;
                             } else {
                                 return '';
@@ -149,11 +169,25 @@
                         render: (data, _, row) => {
                             if (data) {
                                 return `<div>
-                                    <strong>${row.InquiryNumber}</strong><br>
-                                    Item Quantity: ${row.InqItemCount}<br>
-                                    Create Date: ${moment(row.InqCreateDate).format('DD/MM/YYYY HH:mm')}<br>
-                                    Process Date: ${row.InqApprovedDateTime ? moment(row.InqApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
-                                    Duration Time: ${ row.InqApprovedDateTime ? Math.ceil(moment(row.InqApprovedDateTime ?? Date.now()).diff(moment(row.InqCreateDate), 'days', true)).toString()+' Days' : '-' }
+                                    <strong>${row.InquiryNumber}</strong><br><br>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <th>Item Quantity</th>
+                                            <td>${row.InqItemCount}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Create Date</th>
+                                            <td>${moment(row.InqCreateDate).format('DD/MM/YYYY HH:mm')}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Approve Date</th>
+                                            <td>${ row.InqApprovedBy ? row.InqApprovedBy+' at ' : '' } ${row.InqApprovedDateTime ? moment(row.InqApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Duration Time</th>
+                                            <td>${ row.InqApprovedDateTime ? Math.ceil(moment(row.InqApprovedDateTime ?? Date.now()).diff(moment(row.InqCreateDate), 'days', true)).toString()+' Days' : '-' }</td>
+                                        </tr>
+                                    </table>
                                 </div>`;
                             } else {
                                 return '';
@@ -166,12 +200,29 @@
                         render: (data, _, row) => {
                             if (data) {
                                 return `<div>
-                                    <strong>${row.PONumber}</strong><br>
-                                    Item Quantity: ${row.POItemCount}<br>
-                                    Create Date: ${moment(row.POCreateDate).format('DD/MM/YYYY HH:mm')}<br>
-                                    Manager Approve Date: ${row.POManApprovedDateTime ? moment(row.POManApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
-                                    Director Approve Date: ${row.PODirApprovedDateTime ? moment(row.PODirApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
-                                    Duration Time: ${ row.PODirApprovedDateTime ? Math.ceil(moment(row.PODirApprovedDateTime ?? Date.now()).diff(moment(row.POCreateDate), 'days', true)).toString()+' Days' : '-' }
+                                    <strong>${row.PONumber}</strong><br><br>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <th>Item Quantity</th>
+                                            <td>${row.POItemCount}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Create Date</th>
+                                            <td>${moment(row.POCreateDate).format('DD/MM/YYYY HH:mm')}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>GM Approve Date</th>
+                                            <td>${ row.POManApprovedBy ? row.POManApprovedBy+' at ' : '' } ${row.POManApprovedDateTime ? moment(row.POManApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Director Approve Date</th>
+                                            <td>${ row.PODirApprovedBy ? row.PODirApprovedBy+' at ' : '' } ${row.PODirApprovedDateTime ? moment(row.PODirApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Duration Time</th>
+                                            <td>${ row.PODirApprovedDateTime ? Math.ceil(moment(row.PODirApprovedDateTime ?? Date.now()).diff(moment(row.POCreateDate), 'days', true)).toString()+' Days' : '-' }</td>
+                                        </tr>
+                                    </table>
                                 </div>`;
                             } else {
                                 return '';
@@ -184,9 +235,17 @@
                         render: (data, _, row) => {
                             if (data) {
                                 return `<div>
-                                    <strong>${row.PurchaseNumber}</strong><br>
-                                    Item Quantity: ${row.PIItemCount}<br>
-                                    Create Date: ${moment(row.PICreateDate).format('DD/MM/YYYY HH:mm')}
+                                    <strong>${row.PurchaseNumber}</strong><br><br>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <th>Item Quantity</th>
+                                            <td>${row.PIItemCount}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Create Date</th>
+                                            <td>${moment(row.PICreateDate).format('DD/MM/YYYY HH:mm')}</td>
+                                        </tr>
+                                    </table>
                                 </div>`;
                             } else {
                                 return '';
@@ -252,7 +311,7 @@
                 ],
                 scrollCollapse: true,
                 scrollX: true,
-                scrollY: 700,
+                scrollY: 800,
                 initComplete: function () {
                     // this.api()
                     //     .columns()
