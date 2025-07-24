@@ -6,6 +6,9 @@
 @section('styles')
     <!-- <link rel="stylesheet" href="http://cdn.datatables.net/fixedcolumns/3.2.6/css/fixedColumns.dataTables.min.css"> -->
     <style>
+        body {
+            font-size: .9rem;
+        }
         table {
             font-size: .8rem;
         }
@@ -133,7 +136,7 @@
                                     Item Quantity: ${row.PRItemCount}<br>
                                     Create Date: ${moment(row.PRCreateDate).format('DD/MM/YYYY HH:mm')}<br>
                                     Process Date: ${row.PRApprovedDateTime ? moment(row.PRApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
-                                    Duration Time: ${Math.ceil(moment(row.PRApprovedDateTime ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true))} Days
+                                    Duration Time: ${ row.PRApprovedDateTime ? Math.ceil(moment(row.PRApprovedDateTime ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true)).toString()+' Days' : '-' }
                                 </div>`;
                             } else {
                                 return '';
@@ -150,7 +153,7 @@
                                     Item Quantity: ${row.InqItemCount}<br>
                                     Create Date: ${moment(row.InqCreateDate).format('DD/MM/YYYY HH:mm')}<br>
                                     Process Date: ${row.InqApprovedDateTime ? moment(row.InqApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
-                                    Duration Time: ${Math.ceil(moment(row.InqApprovedDateTime ?? Date.now()).diff(moment(row.InqCreateDate), 'days', true))} Days
+                                    Duration Time: ${ row.InqApprovedDateTime ? Math.ceil(moment(row.InqApprovedDateTime ?? Date.now()).diff(moment(row.InqCreateDate), 'days', true)).toString()+' Days' : '-' }
                                 </div>`;
                             } else {
                                 return '';
@@ -168,7 +171,7 @@
                                     Create Date: ${moment(row.POCreateDate).format('DD/MM/YYYY HH:mm')}<br>
                                     Manager Approve Date: ${row.POManApprovedDateTime ? moment(row.POManApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
                                     Director Approve Date: ${row.PODirApprovedDateTime ? moment(row.PODirApprovedDateTime).format('DD/MM/YYYY HH:mm') : '-'}<br>
-                                    Duration Time: ${Math.ceil(moment(row.PODirApprovedDateTime ?? Date.now()).diff(moment(row.POCreateDate), 'days', true))} Days
+                                    Duration Time: ${ row.PODirApprovedDateTime ? Math.ceil(moment(row.PODirApprovedDateTime ?? Date.now()).diff(moment(row.POCreateDate), 'days', true)).toString()+' Days' : '-' }
                                 </div>`;
                             } else {
                                 return '';

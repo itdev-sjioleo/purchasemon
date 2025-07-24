@@ -23,16 +23,22 @@
 <body class="hold-transition sidebar-mini sidebar-collapse">
     <div class="wrapper">
 
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0 !important">
 
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li> -->
+                <li class="nav-item ml-2">
+                    <div style="display: flex; align-items: center;">
+                        <img src="{{ url('public/Logo_SJIO_Small.png') }}" style="width: 40px">
+                        <h4 class="ml-2 fw-bold mb-0">Purchase Monitoring</h4>
+                    </div>
                 </li>
             </ul>
         </nav>
 
-        <aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed">
+        {{--<aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed">
 
             <a href="{{ url('/') }}" class="brand-link">
                 <img src="{{ url('public/Logo_SJIO_Small.png') }}" alt="SJIO Logo"
@@ -94,11 +100,11 @@
 
             </div>
 
-        </aside>
+        </aside>--}}
 
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="margin-left: 0 !important">
 
-            <section class="content-header">
+            {{--<section class="content-header">
                 <div class="container-fluid">
                     <div class="mb-2">
                         <div class="">
@@ -112,10 +118,10 @@
                         </div> -->
                     </div>
                 </div>
-            </section>
+            </section>--}}
 
             <section class="content">
-                <div class="container-fluid pb-2">
+                <div class="container-fluid pt-3 pb-2">
                     @yield('content')
                 </div>
             </section>

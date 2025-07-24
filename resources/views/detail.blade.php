@@ -34,11 +34,19 @@
                             </tr>
                             <tr>
                                 <th>PR Process</th>
-                                <td>{{ $purchase_request->ApprovedBy }} at {{ $purchase_request->formatDate('ApprovedDateTime') }}</td>
+                                <td>
+                                    @if($purchase_request->ApprovedDateTime)
+                                        {{ $purchase_request->ApprovedBy }} at {{ $purchase_request->formatDate('ApprovedDateTime') }}
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <th>Duration Time</th>
-                                <td>{{ ceil($carbon::parse($purchase_request->ApprovedDateTime)->diffInHours($carbon::parse($purchase_request->CreateDate))/24) }} Days</td>
+                                <td>
+                                    @if($purchase_request->ApprovedDateTime)
+                                        {{ ceil($carbon::parse($purchase_request->ApprovedDateTime)->diffInHours($carbon::parse($purchase_request->CreateDate))/24) }} Days
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <th>Items</th>
@@ -82,11 +90,19 @@
                                     </tr>
                                     <tr>
                                         <th>Inquiry Process</th>
-                                        <td>{{ $inquiry->ApprovedBy }} at {{ $inquiry->formatDate('ApprovedDateTime') }}</td>
+                                        <td>
+                                            @if($inquiry->ApprovedDateTime != null)
+                                                {{ $inquiry->ApprovedBy }} at {{ $inquiry->formatDate('ApprovedDateTime') }}
+                                            @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Duration Time</th>
-                                        <td>{{ ceil($carbon::parse($inquiry->ApprovedDateTime)->diffInHours($carbon::parse($inquiry->CreateDate))/24) }} Days</td>
+                                        <td>
+                                            @if($inquiry->ApprovedDateTime != null)
+                                                {{ ceil($carbon::parse($inquiry->ApprovedDateTime)->diffInHours($carbon::parse($inquiry->CreateDate))/24) }} Days
+                                            @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Items</th>
@@ -136,15 +152,27 @@
                                     </tr>
                                     <tr>
                                         <th>PO Manager Approve</th>
-                                        <td>{{ $po->ManagerApprovedBy }} at {{ $po->formatDate('ManagerApprovedDateTime') }}</td>
+                                        <td>
+                                            @if($po->ManagerApprovedDateTime)
+                                                {{ $po->ManagerApprovedBy }} at {{ $po->formatDate('ManagerApprovedDateTime') }}
+                                            @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>PO Director Approve</th>
-                                        <td>{{ $po->DirectorApprovedBy }} at {{ $po->formatDate('DirectorApprovedDateTime') }}</td>
+                                        <td>
+                                            @if($po->DirectorApprovedDateTime)
+                                                {{ $po->DirectorApprovedBy }} at {{ $po->formatDate('DirectorApprovedDateTime') }}
+                                            @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Duration Time</th>
-                                        <td>{{ ceil($carbon::parse($po->DirectorApprovedDateTime ?? now())->diffInHours($carbon::parse($po->CreateDate))/24) }} Days</td>
+                                        <td>
+                                            @if($po->DirectorApprovedDateTime)
+                                                {{ ceil($carbon::parse($po->DirectorApprovedDateTime ?? now())->diffInHours($carbon::parse($po->CreateDate))/24) }} Days
+                                            @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Items</th>
