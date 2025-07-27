@@ -353,7 +353,15 @@
                         text: 'Export All',
                         className: 'btn btn-primary btn-sm',
                         action: function () {
-                            window.location.href = baseURL + '/master-export';
+                            window.location.href = baseURL + '/master-export?'
+                                + $.param({
+                                    filters: {
+                                        pr_date_start: $('#filter-pr-date-start').val(),
+                                        pr_date_end: $('#filter-pr-date-end').val(),
+                                        pr_department: $('#filter-department').val(),
+                                        pr_closed: $('#filter-closed').val(),
+                                    }
+                                });
                         }
                     },
                 ],

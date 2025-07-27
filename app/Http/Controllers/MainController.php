@@ -90,7 +90,9 @@ class MainController extends Controller
 
     public function export(Request $request)
     {
-        return (new MainExport())->download('Purchase Monitoring Master.xlsx');
+        $filters = $request->query('filters');
+
+        return (new MainExport($filters))->download('Purchase Monitoring Master.xlsx');
     }
 
     public function summaryExport(Request $request)

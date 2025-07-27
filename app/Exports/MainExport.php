@@ -11,11 +11,20 @@ class MainExport implements FromCollection, WithHeadings
 {
     use Exportable;
 
+    private $filters;
+
+    public function __construct($filters)
+    {
+        $this->filters = $filters;
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
+        $filters = $this->filters;
+
         $query = DB::connection('ascend')->table('dbo.VIEW_SJIO_PURCHASEMON_MASTER')
             ->select(
                 'PRNumber',
@@ -40,6 +49,22 @@ class MainExport implements FromCollection, WithHeadings
                 'PIItemCount'
             )
             ->where('PRRequestTo', 'PROCUREMENT');
+        
+        if ($filters['pr_date_start']) {
+            $query->where('PRCreateDate', '>=', $filters['pr_date_start']);
+        }
+
+        if ($filters['pr_date_end']) {
+            $query->where('PRCreateDate', '<=', $filters['pr_date_end']);
+        }
+
+        if ($filters['pr_department'] && $filters['pr_department'] != 'ALL_DEPARTMENT') {
+            $query->where('PRRequestByName', '=', $filters['pr_department']);
+        }
+
+        if ($filters['pr_closed'] && $filters['pr_closed'] != 'ALL') {
+            $query->where('PRClosed', '=', $filters['pr_closed']);
+        }
 
         return $query->get();
     }
