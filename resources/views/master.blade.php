@@ -67,6 +67,38 @@
                         <option value="1">Close</option>
                     </select>
                 </div>
+            </div>
+            <hr class="mt-3 mb-3" />
+            <p class="font-weight-bold">Time Duration Days (Greather Than)</p>
+            <div class="d-flex flex-row align-items-end flex-wrap" style="gap: 2rem">
+                <div>
+                    <p class="font-weight-bold">PR Created to PR Approved Mgr</p>
+                    <input id="filter-pr_created-pr_approved_mgr" class="form-control form-control-sm" type="number" />
+                </div>
+                <div>
+                    <p class="font-weight-bold">PR Approved Mgr to PR Process</p>
+                    <input id="filter-pr_approved_mgr-pr_process" class="form-control form-control-sm" type="number" />
+                </div>
+                <div>
+                    <p class="font-weight-bold">PR Process to PO Created</p>
+                    <input id="filter-pr_process-po_created" class="form-control form-control-sm" type="number" />
+                </div>
+                <div>
+                    <p class="font-weight-bold">PO Created to PO Approved Mgr</p>
+                    <input id="filter-po_created-po_approved_mgr" class="form-control form-control-sm" type="number" />
+                </div>
+                <div>
+                    <p class="font-weight-bold">PO Approved Mgr to PO Approved Dir</p>
+                    <input id="filter-po_approved_mgr-po_approved_dir" class="form-control form-control-sm" type="number" />
+                </div>
+                <div>
+                    <p class="font-weight-bold">PO Approved Dir to Good Received</p>
+                    <input id="filter-po_approved_mgr-good_received" class="form-control form-control-sm" type="number" />
+                </div>
+                <div>
+                    <p class="font-weight-bold">Total Length of Time</p>
+                    <input id="filter-length-time" class="form-control form-control-sm" type="number" />
+                </div>
                 <div>
                     <button id="btn-filter" class="btn btn-primary btn-sm">Filter</button>
                 </div>
@@ -106,6 +138,13 @@
                             pr_date_end: $('#filter-pr-date-end').val(),
                             pr_department: $('#filter-department').val(),
                             pr_closed: $('#filter-closed').val(),
+                            pr_created_to_pr_approved_mgr: $('#filter-pr_created-pr_approved_mgr').val(),
+                            pr_approved_mgr_to_pr_process: $('#filter-pr_approved_mgr-pr_process').val(),
+                            pr_process_to_po_created: $('#filter-pr_process-po_created').val(),
+                            po_created_to_po_approved_mgr: $('#filter-po_created-po_approved_mgr').val(),
+                            po_approved_mgr_to_po_approved_dir: $('#filter-po_approved_mgr-po_approved_dir').val(),
+                            po_approved_mgr_to_good_received: $('#filter-po_approved_mgr-good_received').val(),
+                            total_length_time: $('#filter-length-time').val(),
                         };
                     }
                 },
@@ -324,7 +363,7 @@
                                 }
                                 ${GoodReceived ? '<span class="badge badge-success">Goods Received</span>' : '<span class="badge badge-danger">Goods Not Yet Received</span>'}
                                 <br><br>
-                                <strong>Total Length of Time</strong><br> ${Math.ceil(moment(row.PICreateDate ?? Date.now()).diff(moment(row.PRManApprovedDateTime), 'days', true))} Days
+                                <strong>Total Length of Time</strong><br> ${Math.ceil(moment(row.PICreateDate ?? Date.now()).diff(moment(row.PRManApprovedDateTime), 'days', true))} Days / ${row.TotalDays} Days
                             </div>`;
                         }
                     }
@@ -380,6 +419,13 @@
                                         pr_date_end: $('#filter-pr-date-end').val(),
                                         pr_department: $('#filter-department').val(),
                                         pr_closed: $('#filter-closed').val(),
+                                        pr_created_to_pr_approved_mgr: $('#filter-pr_created-pr_approved_mgr').val(),
+                                        pr_approved_mgr_to_pr_process: $('#filter-pr_approved_mgr-pr_process').val(),
+                                        pr_process_to_po_created: $('#filter-pr_process-po_created').val(),
+                                        po_created_to_po_approved_mgr: $('#filter-po_created-po_approved_mgr').val(),
+                                        po_approved_mgr_to_po_approved_dir: $('#filter-po_approved_mgr-po_approved_dir').val(),
+                                        po_approved_mgr_to_good_received: $('#filter-po_approved_mgr-good_received').val(),
+                                        total_length_time: $('#filter-length-time').val(),
                                     }
                                 });
                         }

@@ -46,7 +46,14 @@ class MainExport implements FromCollection, WithHeadings
                 'POItemCount',
                 'PurchaseNumber',
                 'PICreateDate',
-                'PIItemCount'
+                'PIItemCount',
+                'PRCreatedToPRApprovedMgr',
+                'PRApprovedMgrToPRProcess',
+                'PRProcessToPOCreated',
+                'POCreatedToPOApprovedMgr',
+                'POApprovedMgrToPOApprovedDir',
+                'POApprovedDirToPICreated',
+                'TotalDays'
             )
             ->where('PRRequestTo', 'PROCUREMENT');
         
@@ -64,6 +71,34 @@ class MainExport implements FromCollection, WithHeadings
 
         if ($filters['pr_closed'] && $filters['pr_closed'] != 'ALL') {
             $query->where('PRClosed', '=', $filters['pr_closed']);
+        }
+
+        if ($filters['pr_created_to_pr_approved_mgr']) {
+            $query->where('PRCreatedToPRApprovedMgr', '>=', $filters['pr_created_to_pr_approved_mgr']);
+        }
+
+        if ($filters['pr_approved_mgr_to_pr_process']) {
+            $query->where('PRApprovedMgrToPRProcess', '>=', $filters['pr_approved_mgr_to_pr_process']);
+        }
+
+        if ($filters['pr_process_to_po_created']) {
+            $query->where('PRProcessToPOCreated', '>=', $filters['pr_process_to_po_created']);
+        }
+
+        if ($filters['po_created_to_po_approved_mgr']) {
+            $query->where('POCreatedToPOApprovedMgr', '>=', $filters['po_created_to_po_approved_mgr']);
+        }
+
+        if ($filters['po_approved_mgr_to_po_approved_dir']) {
+            $query->where('POApprovedMgrToPOApprovedDir', '>=', $filters['po_approved_mgr_to_po_approved_dir']);
+        }
+
+        if ($filters['po_approved_mgr_to_good_received']) {
+            $query->where('POApprovedDirToPICreated', '>=', $filters['po_approved_mgr_to_good_received']);
+        }
+
+        if ($filters['total_length_time']) {
+            $query->where('TotalDays', '>=', $filters['total_length_time']);
         }
 
         return $query->get();
@@ -91,7 +126,14 @@ class MainExport implements FromCollection, WithHeadings
             'POItemCount',
             'PurchaseNumber',
             'PICreateDate',
-            'PIItemCount'
+            'PIItemCount',
+            'PRCreatedToPRApprovedMgr',
+            'PRApprovedMgrToPRProcess',
+            'PRProcessToPOCreated',
+            'POCreatedToPOApprovedMgr',
+            'POApprovedMgrToPOApprovedDir',
+            'POApprovedDirToPICreated',
+            'TotalDays'
         ];
     }
 }
