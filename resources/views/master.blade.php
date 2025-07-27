@@ -256,17 +256,38 @@
                         data: 'PRNumber',
                         orderable: false,
                         render: (data, _, row) => {
+                            const PRApprovedMan = row.PRManApprovedDateTime != null;
                             const PRApproved = row.PRApprovedDateTime != null;
                             const InqApproved = row.InqApprovedDateTime != null;
                             const POApprovedMan = (row.POManApprovedBy != null && row.POManApprovedBy != '');
                             const POApprovedDir = row.PODirApprovedDateTime != null;
                             const GoodReceived = row.PICreateDate != null;
 
+                            const PRCreateToApproveMgrDays = Math.ceil(moment(row.PRManApprovedDateTime).diff(moment(row.PRCreateDate), 'days', true));
+                            const PRApproveMgrToApproveProcDays = Math.ceil(moment(row.PRApprovedDateTime).diff(moment(row.PRManApprovedDateTime), 'days', true));
                             const POCreateToApproveMgrDays = Math.ceil(moment(row.POManApprovedDateTime).diff(moment(row.POCreateDate), 'days', true));
                             const POApproveMgrToApproveDirDays = Math.ceil(moment(row.PODirApprovedDateTime).diff(moment(row.POManApprovedDateTime), 'days', true));
                             const POApprovedDirToGoodReceived = Math.ceil(moment(row.PICreateDate).diff(moment(row.PODirApprovedDateTime), 'days', true));
 
                             return `<div>
+                                <strong>PR Created to PR Approved Mgr</strong><br> ${
+                                    row.PRManApprovedDateTime ? `
+                                        <span class="badge badge-${ PRCreateToApproveMgrDays > 7 ? 'danger' : 'success'}">
+                                            ${PRCreateToApproveMgrDays} Days
+                                        </span>
+                                    ` : ''
+                                }
+                                ${PRApprovedMan ? '<span class="badge badge-success">PR Approved Manager</span>' : '<span class="badge badge-danger">PR Waiting Manager Approval</span>'}
+                                <br><br>
+                                <strong>PR Approved Mgr to PR Process Procurement</strong><br> ${
+                                    row.PRApprovedDateTime ? `
+                                        <span class="badge badge-${ PRApproveMgrToApproveProcDays > 7 ? 'danger' : 'success'}">
+                                            ${PRApproveMgrToApproveProcDays} Days
+                                        </span>
+                                    ` : ''
+                                }
+                                ${PRApproved ? '<span class="badge badge-success">PR Processed</span>' : '<span class="badge badge-danger">PR Waiting to Processed by Procurement</span>'}
+                                <br><br>
                                 <strong>PR Process to PO Created</strong><br> ${
                                     row.PRApprovedDateTime ? `
                                         <span class="badge badge-${Math.ceil(moment(row.POCreateDate ?? Date.now()).diff(moment(row.PRApprovedDateTime), 'days', true)) > 7 ? 'danger' : 'success'}">
@@ -274,7 +295,6 @@
                                         </span>
                                     ` : ''
                                 }
-                                ${PRApproved ? '<span class="badge badge-success">PR Processed</span>' : '<span class="badge badge-danger">PR Waiting to Processed by Procurement</span>'}
                                 ${InqApproved ? '<span class="badge badge-success">Inquiry Approved</span>' : '<span class="badge badge-danger">Inquiry Waiting Approval</span>'}
                                 <br><br>
                                 <strong>PO Created to PO Approved Mgr</strong><br> ${
@@ -304,7 +324,7 @@
                                 }
                                 ${GoodReceived ? '<span class="badge badge-success">Goods Received</span>' : '<span class="badge badge-danger">Goods Not Yet Received</span>'}
                                 <br><br>
-                                <strong>Total Length of Time</strong><br> ${Math.ceil(moment(row.PICreateDate ?? Date.now()).diff(moment(row.PRCreateDate), 'days', true))} Days
+                                <strong>Total Length of Time</strong><br> ${Math.ceil(moment(row.PICreateDate ?? Date.now()).diff(moment(row.PRManApprovedDateTime), 'days', true))} Days
                             </div>`;
                         }
                     }
