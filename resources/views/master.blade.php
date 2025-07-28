@@ -101,6 +101,7 @@
                 </div>
                 <div>
                     <button id="btn-filter" class="btn btn-primary btn-sm">Filter</button>
+                    <button id="btn-clear-filter" class="btn btn-primary btn-sm">Clear Filter</button>
                 </div>
             </div>
             <hr>
@@ -434,6 +435,20 @@
             });
 
             $('#btn-filter').click(() => {table.ajax.reload()});
+
+            $('#btn-clear-filter').click(() => {
+                $('#filter-pr-date-start').val('');
+                $('#filter-pr-date-end').val('');
+                $('#filter-department').val('ALL_DEPARTMENT');
+                $('#filter-closed').val('ALL');
+                $('#filter-pr_created-pr_approved_mgr').val('');
+                $('#filter-pr_approved_mgr-pr_process').val('');
+                $('#filter-pr_process-po_created').val('');
+                $('#filter-po_created-po_approved_mgr').val('');
+                $('#filter-po_approved_mgr-po_approved_dir').val('');
+                $('#filter-po_approved_mgr-good_received').val('');
+                $('#filter-length-time').val('');
+            });
         });
     </script>
 @endsection
