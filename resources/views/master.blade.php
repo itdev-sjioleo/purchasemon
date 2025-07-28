@@ -364,7 +364,7 @@
                                 }
                                 ${GoodReceived ? '<span class="badge badge-success">Goods Received</span>' : '<span class="badge badge-danger">Goods Not Yet Received</span>'}
                                 <br><br>
-                                <strong>Total Length of Time</strong><br> ${Math.ceil(moment(row.PICreateDate ?? Date.now()).diff(moment(row.PRManApprovedDateTime), 'days', true))} Days / ${row.TotalDays} Days
+                                <strong>Total Length of Time</strong><br>${row.TotalDays} Days
                             </div>`;
                         }
                     }
