@@ -33,6 +33,14 @@
                                 <td>{{ $purchase_request->CreatedBy }} at {{ $purchase_request->formatDate('CreateDate') }}</td>
                             </tr>
                             <tr>
+                                <th>PR Manager Approve</th>
+                                <td>
+                                    @if($purchase_request->ControllerApprovedDateTime)
+                                        {{ $purchase_request->ControllerApprovedby }} at {{ $purchase_request->formatDate('ControllerApprovedDateTime') }}
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>PR Process</th>
                                 <td>
                                     @if($purchase_request->ApprovedDateTime)
@@ -89,7 +97,7 @@
                                         <td>{{ $inquiry->CreatedBy }} at {{ $inquiry->formatDate('CreateDate') }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Inquiry Process</th>
+                                        <th>Inquiry Approve</th>
                                         <td>
                                             @if($inquiry->ApprovedDateTime != null)
                                                 {{ $inquiry->ApprovedBy }} at {{ $inquiry->formatDate('ApprovedDateTime') }}
