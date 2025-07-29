@@ -245,13 +245,16 @@
                         render: (data, _, row) => {
                             const PRApprovedMan = row.PRManApprovedDateTime != null;
                             const PRApproved = row.PRApprovedDateTime != null;
+                            const InqCreated = row.InqCreateDate != null;
                             const InqApproved = row.InqApprovedDateTime != null;
+                            const POCreated = row.POCreateDate != null;
                             const POApprovedMan = (row.POManApprovedBy != null && row.POManApprovedBy != '');
                             const POApprovedDir = row.PODirApprovedDateTime != null;
                             const GoodReceived = row.PICreateDate != null;
                             
                             if (!PRApprovedMan) return 'Waiting PR Approval 1';
                             if (!PRApproved) return 'Waiting PR Approval 2';
+                            if (!POCreateDate) return 'Waiting PO Created';
                             if (!POApprovedMan) return 'Waiting PO Approval 1';
                             if (!POApprovedDir) return 'Waiting PO Approval 2';
                             if (!GoodReceived) return 'Waiting for Goods Received';
