@@ -254,7 +254,7 @@
                             
                             if (!PRApprovedMan) return 'Waiting PR Approval 1';
                             if (!PRApproved) return 'Waiting PR Approval 2';
-                            if (!POCreateDate) return 'Waiting PO Created';
+                            if (!POCreated) return 'Waiting PO Created';
                             if (!POApprovedMan) return 'Waiting PO Approval 1';
                             if (!POApprovedDir) return 'Waiting PO Approval 2';
                             if (!GoodReceived) return 'Waiting for Goods Received';
