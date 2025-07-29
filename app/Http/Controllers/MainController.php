@@ -17,6 +17,11 @@ class MainController extends Controller
         return view('master');
     }
 
+    public function view2()
+    {
+        return view('view2');
+    }
+
     public function summary()
     {
         return view('summary');

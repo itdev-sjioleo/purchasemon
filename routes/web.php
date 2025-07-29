@@ -18,7 +18,11 @@ Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')->name('
 Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
 Route::middleware(['auth', 'auth.session'])->group(function () {
-    Route::get('/', 'App\Http\Controllers\MainController@index');
+    Route::get('/', function () {
+        return redirect('/view2');
+    });
+    Route::get('/view1', 'App\Http\Controllers\MainController@index');
+    Route::get('/view2', 'App\Http\Controllers\MainController@view2');
     Route::get('/summary', 'App\Http\Controllers\MainController@summary');
     Route::get('detail/{pr_id}', 'App\Http\Controllers\MainController@detail');
     Route::get('master-datatable', 'App\Http\Controllers\MainController@datatable');

@@ -1,7 +1,6 @@
 @extends('layout')
 
-@section('title', 'Purchase Monitoring')
-
+@section('title', 'Detail View')
 
 @section('styles')
     <!-- <link rel="stylesheet" href="http://cdn.datatables.net/fixedcolumns/3.2.6/css/fixedColumns.dataTables.min.css"> -->

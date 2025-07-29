@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laporan Purchase Monitoring</title>
+    <title>@yield('title') | Laporan Purchase Monitoring</title>
     <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ url('public/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ url('public/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -29,11 +29,17 @@
                 <!-- <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li> -->
-                <li class="nav-item ml-2">
+                <li class="nav-item ml-2 mr-5">
                     <div style="display: flex; align-items: center;">
                         <img src="{{ url('public/Logo_SJIO_Small.png') }}" style="width: 40px">
                         <h4 class="ml-2 fw-bold mb-0">Purchase Monitoring</h4>
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/view2">Summary View</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/view1">Detail View</a>
                 </li>
             </ul>
         </nav>
