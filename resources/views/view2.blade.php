@@ -289,8 +289,12 @@
                 },
                 dom: `
                     <'row'
-                        <'col-auto flex-grow-1'l>
-                        <'col-auto'f>
+                        <'col-auto flex-grow-1'
+                            <'d-flex flex-row'
+                                <l>
+                                <'ml-5'f>
+                            >
+                        >
                         <'col-auto'B>
                     >
                     <'row'
@@ -304,27 +308,32 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: 'Export All',
-                        className: 'btn btn-primary btn-sm',
-                        action: function () {
-                            window.location.href = baseURL + '/master-export?'
-                                + $.param({
-                                    filters: {
-                                        pr_date_start: $('#filter-pr-date-start').val(),
-                                        pr_date_end: $('#filter-pr-date-end').val(),
-                                        pr_department: $('#filter-department').val(),
-                                        pr_closed: $('#filter-closed').val(),
-                                        pr_created_to_pr_approved_mgr: $('#filter-pr_created-pr_approved_mgr').val(),
-                                        pr_approved_mgr_to_pr_process: $('#filter-pr_approved_mgr-pr_process').val(),
-                                        pr_process_to_po_created: $('#filter-pr_process-po_created').val(),
-                                        po_created_to_po_approved_mgr: $('#filter-po_created-po_approved_mgr').val(),
-                                        po_approved_mgr_to_po_approved_dir: $('#filter-po_approved_mgr-po_approved_dir').val(),
-                                        po_approved_mgr_to_good_received: $('#filter-po_approved_mgr-good_received').val(),
-                                        total_length_time: $('#filter-length-time').val(),
-                                    }
-                                });
-                        }
-                    },
+                        text: 'Export Excel',
+                        className: 'btn btn-primary btn-sm'
+                    }
+                    // {
+                    //     extend: 'excel',
+                    //     text: 'Export All',
+                    //     className: 'btn btn-primary btn-sm',
+                    //     action: function () {
+                    //         window.location.href = baseURL + '/master-export?'
+                    //             + $.param({
+                    //                 filters: {
+                    //                     pr_date_start: $('#filter-pr-date-start').val(),
+                    //                     pr_date_end: $('#filter-pr-date-end').val(),
+                    //                     pr_department: $('#filter-department').val(),
+                    //                     pr_closed: $('#filter-closed').val(),
+                    //                     pr_created_to_pr_approved_mgr: $('#filter-pr_created-pr_approved_mgr').val(),
+                    //                     pr_approved_mgr_to_pr_process: $('#filter-pr_approved_mgr-pr_process').val(),
+                    //                     pr_process_to_po_created: $('#filter-pr_process-po_created').val(),
+                    //                     po_created_to_po_approved_mgr: $('#filter-po_created-po_approved_mgr').val(),
+                    //                     po_approved_mgr_to_po_approved_dir: $('#filter-po_approved_mgr-po_approved_dir').val(),
+                    //                     po_approved_mgr_to_good_received: $('#filter-po_approved_mgr-good_received').val(),
+                    //                     total_length_time: $('#filter-length-time').val(),
+                    //                 }
+                    //             });
+                    //     }
+                    // },
                 ],
             });
 
