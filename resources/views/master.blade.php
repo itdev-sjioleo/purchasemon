@@ -417,7 +417,7 @@
                 ],
                 scrollCollapse: true,
                 scrollX: true,
-                scrollY: 800,
+                scrollY: 600,
                 initComplete: function () {
                     // this.api()
                     //     .columns()

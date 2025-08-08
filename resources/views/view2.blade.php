@@ -168,9 +168,11 @@
                         <th>PR Create</th>
                         <th>PR Approval 1</th>
                         <th>PR Approval 2</th>
+                        <th>Inquiry Approval</th>
                         <th>PO Create</th>
                         <th>PO Approval 1</th>
                         <th>PO Approval 2</th>
+                        <th>GRN Create</th>
                         <th>ETA</th>
                         <th>Target</th>
                         <th>Status</th>
@@ -256,6 +258,12 @@
                         }
                     },
                     {
+                        data: 'InqApprovedDateTime',
+                        render: (data) => {
+                            return data ? moment(data).format('DD/MM/YYYY') : '';
+                        }
+                    },
+                    {
                         data: 'POCreateDate',
                         render: (data) => {
                             return data ? moment(data).format('DD/MM/YYYY') : '';
@@ -275,6 +283,12 @@
                     },
                     {
                         data: 'POExpectedDelivery',
+                        render: (data) => {
+                            return data ? moment(data).format('DD/MM/YYYY') : '';
+                        }
+                    },
+                    {
+                        data: 'PICreateDate',
                         render: (data) => {
                             return data ? moment(data).format('DD/MM/YYYY') : '';
                         }
@@ -312,7 +326,7 @@
                 ],
                 scrollCollapse: true,
                 scrollX: true,
-                scrollY: 800,
+                scrollY: 600,
                 initComplete: function () {
                     // this.api()
                     //     .columns()
