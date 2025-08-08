@@ -48,7 +48,59 @@ class MainController extends Controller
         }
 
         if ($filters['pr_department'] && $filters['pr_department'] != 'ALL_DEPARTMENT') {
-            $query->where('PRRequestByName', '=', $filters['pr_department']);
+            switch ($filters['pr_department']) {               
+                case 'refinery.fraksinasi':
+                    $query->whereIn('PRRequestByName', ['REF & FRAC', 'REFINERY', 'FRAKSINASI']);
+                    break;
+                
+                case 'tank.farm':
+                    $query->whereIn('PRRequestByName', ['TANK FARM', 'LOGISTIC']);
+                    break;
+                
+                case 'utility':
+                    $query->whereIn('PRRequestByName', ['UTILITY', 'BOILER']);
+                    break;
+                
+                case 'laboratorium':
+                    $query->whereIn('PRRequestByName', ['LABORATORIUM',]);
+                    break;
+                
+                case 'hrga':
+                    $query->whereIn('PRRequestByName', ['GENERAL AFFAIR', 'HRD', 'LEGAL & REGULATION']);
+                    break;
+                
+                case 'maintenance':
+                    $query->whereIn('PRRequestByName', ['MAINTENANCE & EI']);
+                    break;
+                
+                case 'it':
+                    $query->whereIn('PRRequestByName', ['IT']);
+                    break;
+                
+                case 'hse':
+                    $query->whereIn('PRRequestByName', ['HSE']);
+                    break;
+                
+                case 'warehouse':
+                    $query->whereIn('PRRequestByName', ['WAREHOUSE']);
+                    break;
+                
+                case 'project':
+                    $query->whereIn('PRRequestByName', ['PROJECT']);
+                    break;
+                
+                case 'office.ho':
+                    $query->whereIn('PRRequestByName', ['OFFICE HO']);
+                    break;
+                
+                case 'commercial':
+                    $query->whereIn('PRRequestByName', ['COMMERCIAL']);
+                    break;
+                
+                default:                    
+                    break;
+            }
+            
         }
 
         if ($filters['pr_closed'] && $filters['pr_closed'] != 'ALL') {

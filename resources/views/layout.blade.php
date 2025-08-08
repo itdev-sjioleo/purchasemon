@@ -24,24 +24,39 @@
     <div class="wrapper">
 
         <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0 !important">
+            <div class="display: flex; flex-direction: row;">
+                <ul class="navbar-nav">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                    </li> -->
+                    <li class="nav-item ml-2 mr-5">
+                        <div style="display: flex; align-items: center;">
+                            <img src="{{ url('public/Logo_SJIO_Small.png') }}" style="width: 40px">
+                            <h4 class="ml-2 fw-bold mb-0">Purchase Monitoring</h4>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/view2">Summary View</a>
+                    </li>
+                    <li class="nav-item" style="margin-right: 800px">
+                        <a class="nav-link" href="/view1">Detail View</a>
+                    </li>
+                    <li class="nav-item">
+                        <div style="height: 40px; line-height: 40px; text-align: center;">
+                            {{ auth()->user()->name }}
+                        </div>
+                    </li>
+                    <li class="nav-item d-flex align-items-center ml-3">
+                        <form id="form-logout" method="post" action="{{ route('logout') }}">
+                            @csrf
+                        </form>
+                        <a onclick="$('#form-logout').submit()" class="btn btn-sm btn-secondary">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-            <ul class="navbar-nav">
-                <!-- <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li> -->
-                <li class="nav-item ml-2 mr-5">
-                    <div style="display: flex; align-items: center;">
-                        <img src="{{ url('public/Logo_SJIO_Small.png') }}" style="width: 40px">
-                        <h4 class="ml-2 fw-bold mb-0">Purchase Monitoring</h4>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/view2">Summary View</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/view1">Detail View</a>
-                </li>
-            </ul>
         </nav>
 
         {{--<aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed">

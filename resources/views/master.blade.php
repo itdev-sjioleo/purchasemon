@@ -38,24 +38,71 @@
                 <div>
                     <p class="font-weight-bold">Department</p>
                     <select id="filter-department" class="form-control form-control-sm" aria-label="Default select example">
-                        <option value="ALL_DEPARTMENT" selected>ALL DEPARTMENT</option>
-                        <option value="REF & FRAC">REF & FRAC</option>
-                        <option value="TANK FARM">TANK FARM</option>
-                        <option value="BOILER">BOILER</option>
-                        <option value="LABORATORIUM">LABORATORIUM</option>
-                        <option value="GENERAL AFFAIR">GENERAL AFFAIR</option>
-                        <option value="MAINTENANCE & EI">MAINTENANCE & EI</option>
-                        <option value="IT">IT</option>
-                        <option value="HSE">HSE</option>
-                        <option value="UTILITY">UTILITY</option>
-                        <option value="WAREHOUSE">WAREHOUSE</option>
-                        <option value="HRD">HRD</option>
-                        <option value="FRAKSINASI">FRAKSINASI</option>
-                        <option value="PROJECT">PROJECT</option>
-                        <option value="OFFICE HO">OFFICE HO</option>
-                        <option value="LOGISTIC">LOGISTIC</option>
-                        <option value="LEGAL & REGULATION">LEGAL & REGULATION</option>
-                        <option value="COMMERCIAL">COMMERCIAL</option>
+                        @if(auth()->user()->username == 'admin' or auth()->user()->username == 'richard')
+                            <option value="ALL_DEPARTMENT" selected>ALL DEPARTMENT</option>
+                            <option value="refinery.fraksinasi">REF & FRAC</option>
+                            <option value="tank.farm">TANK FARM</option>
+                            <option value="utility">UTILITY</option>
+                            <option value="laboratorium">LABORATORIUM</option>
+                            <option value="hrga">HRGA</option>
+                            <option value="maintenance">MAINTENANCE</option>
+                            <option value="it">IT</option>
+                            <option value="hse">HSE</option>
+                            <option value="warehouse">WAREHOUSE</option>
+                            <option value="project">PROJECT</option>
+                            <option value="office.ho">OFFICE HO</option>
+                            <option value="commercial">COMMERCIAL</option>
+                        @endif
+                        @if(auth()->user()->username == 'refinery.fraksinasi')
+                            <option value="refinery.fraksinasi" selected>REF & FRAC</option>
+                        @endif
+                        @if(auth()->user()->username == 'tank.farm')
+                            <option value="tank.farm" selected>TANK FARM</option>
+                        @endif
+                        @if(auth()->user()->username == 'utility')
+                            <option value="utility" selected>UTILITY</option>
+                        @endif
+                        @if(auth()->user()->username == 'laboratorium')
+                            <option value="laboratorium" selected>LABORATORIUM</option>
+                        @endif
+                        @if(auth()->user()->username == 'hrga')
+                            <option value="hrga" selected>HRGA</option>
+                        @endif
+                        @if(auth()->user()->username == 'maintenance')
+                            <option value="maintenance" selected>MAINTENANCE</option>
+                        @endif
+                        @if(auth()->user()->username == 'it')
+                            <option value="it" selected>IT</option>
+                        @endif
+                        @if(auth()->user()->username == 'hse')
+                            <option value="hse" selected>HSE</option>
+                        @endif
+                        @if(auth()->user()->username == 'warehouse')
+                            <option value="warehouse" selected>WAREHOUSE</option>
+                        @endif
+                        @if(auth()->user()->username == 'project')
+                            <option value="project" selected>PROJECT</option>
+                        @endif
+                        @if(auth()->user()->username == 'office.ho')
+                            <option value="office.ho" selected>OFFICE HO</option>
+                        @endif
+                        @if(auth()->user()->username == 'commercial')
+                            <option value="commercial" selected>COMMERCIAL</option>
+                        @endif
+                        @if(auth()->user()->username == 'alban')
+                            <option value="refinery.fraksinasi" selected>REF & FRAC</option>
+                            <option value="maintenance">MAINTENANCE</option>
+                            <option value="project">PROJECT</option>
+                            <option value="tank.farm">TANK FARM</option>
+                        @endif
+                        @if(auth()->user()->username == 'angelivana')
+                            <option value="utility" selected>UTILITY</option>
+                            <option value="laboratorium">LABORATORIUM</option>
+                            <option value="hrga">HRGA</option>
+                            <option value="it">IT</option>
+                            <option value="hse">HSE</option>
+                            <option value="office.ho">OFFICE HO</option>
+                        @endif
                     </select>
                 </div>
                 <div>
