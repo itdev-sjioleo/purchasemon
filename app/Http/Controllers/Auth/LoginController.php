@@ -49,7 +49,7 @@ class LoginController extends Controller
     /**
      * Handle an authentication attempt.
      */
-    public function login(Request $request): RedirectResponse
+    public function login(Request $request)
     {
         $credentials = $request->validate([
             'username' => ['required'],
