@@ -64,7 +64,7 @@ class LoginController extends Controller
                 'event_type' => 'login'
             ]);
  
-            return redirect()->intended('home');
+            return redirect()->intended('/');
         }
  
         return back()->withErrors([
