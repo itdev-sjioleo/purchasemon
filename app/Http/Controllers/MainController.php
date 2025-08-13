@@ -33,6 +33,24 @@ class MainController extends Controller
         return view('detail', compact('purchase_request'));
     }
 
+    public function authLog(Request $request)
+    { 
+        if (auth()->user()->username != 'admin') {
+            return redirect()->back();
+        }
+        
+        return view('auth_log');
+    }
+
+    public function datatableAuthLog(Request $request)
+    {
+        $query = DB::table('auth_log');
+
+        $datatable = datatables($query);
+
+        return $datatable->toJson();
+    }
+
     public function datatable(Request $request)
     {
         $filters = $request->get('filters');

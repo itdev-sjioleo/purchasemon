@@ -61,11 +61,20 @@ class LoginController extends Controller
 
             DB::table('auth_log')->insert([
                 'username' => $credentials['username'],
-                'event_type' => 'login'
+                'event_type' => 'login',
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent()
             ]);
  
             return redirect()->intended('/');
         }
+
+        DB::table('auth_log')->insert([
+            'username' => $credentials['username'],
+            'event_type' => 'failed_login',
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent()
+        ]);
  
         return back()->withErrors([
             'username' => 'The provided credentials do not match our records.',
@@ -80,7 +89,9 @@ class LoginController extends Controller
 
         DB::table('auth_log')->insert([
             'username' => $username,
-            'event_type' => 'logout'
+            'event_type' => 'logout',
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent()
         ]);
 
         $request->session()->invalidate(); // Invalidates the current session

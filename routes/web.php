@@ -29,6 +29,8 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('summary-datatable', 'App\Http\Controllers\MainController@summaryDatatable');
     Route::get('master-export', 'App\Http\Controllers\MainController@export');
     Route::get('summary-export', 'App\Http\Controllers\MainController@summaryExport');
+    Route::get('auth-log', 'App\Http\Controllers\MainController@authLog');
+    Route::get('auth-log-datatable', 'App\Http\Controllers\MainController@datatableAuthLog');
 });
 
 Auth::routes();

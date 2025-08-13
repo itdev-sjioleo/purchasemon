@@ -38,9 +38,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/view2">Summary View</a>
                     </li>
-                    <li class="nav-item" style="margin-right: 800px">
+                    <li class="nav-item">
                         <a class="nav-link" href="/view1">Detail View</a>
                     </li>
+                    @if(auth()->user()->username == 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth-log">Auth Log</a>
+                        </li>
+                    @endif
+                    <li class="nav-item" style="margin-right: 650px"></li>
                     <li class="nav-item">
                         <div style="height: 40px; line-height: 40px; text-align: center;">
                             {{ auth()->user()->name }}

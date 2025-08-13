@@ -168,7 +168,7 @@
                         <th>PR Create</th>
                         <th>PR Approval 1</th>
                         <th>PR Approval 2</th>
-                        <th>Inquiry Approval</th>
+                        <th>Inquiry Create</th>
                         <th>PO Create</th>
                         <th>PO Approval 1</th>
                         <th>PO Approval 2</th>
@@ -258,7 +258,7 @@
                         }
                     },
                     {
-                        data: 'InqApprovedDateTime',
+                        data: 'InqCreateDate',
                         render: (data) => {
                             return data ? moment(data).format('DD/MM/YYYY') : '';
                         }
