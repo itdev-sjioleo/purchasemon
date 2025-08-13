@@ -282,13 +282,13 @@
                         }
                     },
                     {
-                        data: 'POExpectedDelivery',
+                        data: 'PICreateDate',
                         render: (data) => {
                             return data ? moment(data).format('DD/MM/YYYY') : '';
                         }
                     },
                     {
-                        data: 'PICreateDate',
+                        data: 'POExpectedDelivery',
                         render: (data) => {
                             return data ? moment(data).format('DD/MM/YYYY') : '';
                         }
