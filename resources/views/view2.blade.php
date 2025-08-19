@@ -46,18 +46,18 @@
                     <select id="filter-department" class="form-control form-control-sm" aria-label="Default select example">
                         @if(auth()->user()->username == 'admin')
                             <option value="ALL_DEPARTMENT" selected>ALL DEPARTMENT</option>
-                            <option value="REF & FRAC">REF & FRAC</option>
-                            <option value="TANK FARM">TANK FARM</option>
-                            <option value="UTILITY">UTILITY</option>
-                            <option value="LABORATORIUM">LABORATORIUM</option>
-                            <option value="HRGA">HRGA</option>
-                            <option value="MAINTENANCE">MAINTENANCE</option>
-                            <option value="IT">IT</option>
-                            <option value="HSE">HSE</option>
-                            <option value="WAREHOUSE">WAREHOUSE</option>
-                            <option value="PROJECT">PROJECT</option>
-                            <option value="OFFICE HO">OFFICE HO</option>
-                            <option value="COMMERCIAL">COMMERCIAL</option>
+                            <option value="refinery.fraksinasi">REF & FRAC</option>
+                            <option value="tank.farm">TANK FARM</option>
+                            <option value="utility">UTILITY</option>
+                            <option value="laboratorium">LABORATORIUM</option>
+                            <option value="hrga">HRGA</option>
+                            <option value="maintenance">MAINTENANCE</option>
+                            <option value="it">IT</option>
+                            <option value="hse">HSE</option>
+                            <option value="warehouse">WAREHOUSE</option>
+                            <option value="project">PROJECT</option>
+                            <option value="office.ho">OFFICE HO</option>
+                            <option value="commercial">COMMERCIAL</option>
                         @endif
                         @if(auth()->user()->username == 'refinery.fraksinasi')
                             <option value="refinery.fraksinasi" selected>REF & FRAC</option>
