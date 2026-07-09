@@ -129,6 +129,41 @@ class MainController extends Controller
             $query->where('PRClosed', '=', $filters['pr_closed']);
         }
 
+        if (!empty($filters['update_status']) && $filters['update_status'] != 'ALL') {
+            switch ($filters['update_status']) {
+                case 'waiting_pr_approval_1':
+                    $query->whereNull('PRManApprovedDateTime');
+                    break;
+                case 'waiting_pr_approval_2':
+                    $query->whereNotNull('PRManApprovedDateTime')
+                        ->whereNull('PRApprovedDateTime');
+                    break;
+                case 'waiting_po_created':
+                    $query->whereNotNull('PRApprovedDateTime')
+                        ->whereNull('POCreateDate');
+                    break;
+                case 'waiting_po_approval_1':
+                    $query->whereNotNull('POCreateDate')
+                        ->where(function ($q) {
+                            $q->whereNull('POManApprovedBy')
+                                ->orWhere('POManApprovedBy', '');
+                        });
+                    break;
+                case 'waiting_po_approval_2':
+                    $query->whereNotNull('POManApprovedBy')
+                        ->where('POManApprovedBy', '!=', '')
+                        ->whereNull('PODirApprovedDateTime');
+                    break;
+                case 'waiting_goods_received':
+                    $query->whereNotNull('PODirApprovedDateTime')
+                        ->whereNull('PICreateDate');
+                    break;
+                case 'completed':
+                    $query->whereNotNull('PICreateDate');
+                    break;
+            }
+        }
+
         if ($filters['pr_created_to_pr_approved_mgr']) {
             $query->where('PRCreatedToPRApprovedMgr', '>=', $filters['pr_created_to_pr_approved_mgr']);
         }

@@ -116,6 +116,19 @@
                     </select>
                 </div>
                 <div>
+                    <p class="font-weight-bold">Update</p>
+                    <select id="filter-update" class="form-control form-control-sm" aria-label="Update status filter">
+                        <option value="ALL" selected>ALL</option>
+                        <option value="waiting_pr_approval_1">Waiting PR Approval 1</option>
+                        <option value="waiting_pr_approval_2">Waiting PR Approval 2</option>
+                        <option value="waiting_po_created">Waiting PO Created</option>
+                        <option value="waiting_po_approval_1">Waiting PO Approval 1</option>
+                        <option value="waiting_po_approval_2">Waiting PO Approval 2</option>
+                        <option value="waiting_goods_received">Waiting for Goods Received</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                <div>
                     <button id="btn-filter" class="btn btn-primary btn-sm">Filter</button>
                 </div>
                 <div class="d-none">
@@ -206,6 +219,7 @@
                             pr_date_end: $('#filter-pr-date-end').val(),
                             pr_department: $('#filter-department').val(),
                             pr_closed: $('#filter-closed').val(),
+                            update_status: $('#filter-update').val(),
                             pr_created_to_pr_approved_mgr: $('#filter-pr_created-pr_approved_mgr').val(),
                             pr_approved_mgr_to_pr_process: $('#filter-pr_approved_mgr-pr_process').val(),
                             pr_process_to_po_created: $('#filter-pr_process-po_created').val(),
@@ -409,6 +423,7 @@
                 $('#filter-pr-date-end').val('');
                 $('#filter-department').val('ALL_DEPARTMENT');
                 $('#filter-closed').val('ALL');
+                $('#filter-update').val('ALL');
                 $('#filter-pr_created-pr_approved_mgr').val('');
                 $('#filter-pr_approved_mgr-pr_process').val('');
                 $('#filter-pr_process-po_created').val('');
