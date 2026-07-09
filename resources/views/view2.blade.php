@@ -44,7 +44,7 @@
                 <div>
                     <p class="font-weight-bold">Department</p>
                     <select id="filter-department" class="form-control form-control-sm" aria-label="Default select example">
-                        @if(auth()->user()->username == 'admin')
+                        @if(in_array(auth()->user()->username, ['admin', 'richard', 'fadhil', 'ester', 'sutajaya']))
                             <option value="ALL_DEPARTMENT" selected>ALL DEPARTMENT</option>
                             <option value="refinery.fraksinasi">REF & FRAC</option>
                             <option value="tank.farm">TANK FARM</option>
@@ -58,6 +58,7 @@
                             <option value="project">PROJECT</option>
                             <option value="office.ho">OFFICE HO</option>
                             <option value="commercial">COMMERCIAL</option>
+			    <option value="washing.plant">WASHING PLANT</option>
                         @endif
                         @if(auth()->user()->username == 'refinery.fraksinasi')
                             <option value="refinery.fraksinasi" selected>REF & FRAC</option>
@@ -95,6 +96,9 @@
                         @if(auth()->user()->username == 'commercial')
                             <option value="commercial" selected>COMMERCIAL</option>
                         @endif
+			@if(auth()->user()->username == 'washing.plant')
+			    <option value="washing.plant" selected>WASHING PLANT</option>
+			@endif
                         @if(auth()->user()->username == 'alban')
                             <option value="refinery.fraksinasi" selected>REF & FRAC</option>
                             <option value="maintenance">MAINTENANCE</option>

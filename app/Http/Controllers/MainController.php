@@ -114,6 +114,10 @@ class MainController extends Controller
                 case 'commercial':
                     $query->whereIn('PRRequestByName', ['COMMERCIAL']);
                     break;
+
+		case 'washing.plant':
+		    $query->whereIn('PRRequestByName', ['WASHING PLANT']);
+		    break;
                 
                 default:                    
                     break;
