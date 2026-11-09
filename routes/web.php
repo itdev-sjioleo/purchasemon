@@ -29,8 +29,19 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('summary-datatable', 'App\Http\Controllers\MainController@summaryDatatable');
     Route::get('master-export', 'App\Http\Controllers\MainController@export');
     Route::get('summary-export', 'App\Http\Controllers\MainController@summaryExport');
-    Route::get('auth-log', 'App\Http\Controllers\MainController@authLog');
-    Route::get('auth-log-datatable', 'App\Http\Controllers\MainController@datatableAuthLog');
+
+    Route::middleware(['admin'])->group(function () {
+        Route::get('auth-log', 'App\Http\Controllers\MainController@authLog');
+        Route::get('auth-log-datatable', 'App\Http\Controllers\MainController@datatableAuthLog');
+
+        Route::prefix('users')->name('users.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\UserController::class, 'index'])->name('index');
+            Route::post('/', [\App\Http\Controllers\UserController::class, 'store'])->name('store');
+            Route::put('/{user}', [\App\Http\Controllers\UserController::class, 'update'])->name('update');
+            Route::put('/{user}/reset-password', [\App\Http\Controllers\UserController::class, 'resetPassword'])->name('reset-password');
+            Route::delete('/{user}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('destroy');
+        });
+    });
 });
 
 Auth::routes();

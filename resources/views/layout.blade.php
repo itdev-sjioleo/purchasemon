@@ -43,10 +43,13 @@
                     </li>
                     @if(auth()->user()->username == 'admin')
                         <li class="nav-item">
+                            <a class="nav-link" href="/users">Manajemen User</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/auth-log">Auth Log</a>
                         </li>
                     @endif
-                    <li class="nav-item" style="margin-right: 650px"></li>
+                    <li class="nav-item ml-auto"></li>
                     <li class="nav-item">
                         <div style="height: 40px; line-height: 40px; text-align: center;">
                             {{ auth()->user()->name }}

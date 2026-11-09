@@ -35,10 +35,6 @@ class MainController extends Controller
 
     public function authLog(Request $request)
     { 
-        if (auth()->user()->username != 'admin') {
-            return redirect()->back();
-        }
-        
         return view('auth_log');
     }
 

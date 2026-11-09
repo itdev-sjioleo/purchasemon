@@ -285,6 +285,13 @@
                         data: 'PONumber',
                         render: (data, _, row) => {
                             if (data) {
+                                const expectedDeliveryDays = (row.POExpectedDelivery && row.POPODate)
+                                    ? Math.ceil(moment(row.POExpectedDelivery).diff(moment(row.POPODate), 'days', true))
+                                    : null;
+                                const expectedDeliveryDate = (row.PODirApprovedDateTime && expectedDeliveryDays !== null)
+                                    ? moment(row.PODirApprovedDateTime).add(expectedDeliveryDays, 'days').format('DD/MM/YYYY')
+                                    : '-';
+
                                 return `<div>
                                     <strong>${row.PONumber}</strong><br><br>
                                     <table class="table table-sm">
@@ -307,6 +314,14 @@
                                         <tr>
                                             <th>Duration Time</th>
                                             <td>${ row.PODirApprovedDateTime ? Math.ceil(moment(row.PODirApprovedDateTime ?? Date.now()).diff(moment(row.POCreateDate), 'days', true)).toString()+' Days' : '-' }</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Expected Delivery Days</th>
+                                            <td>${ expectedDeliveryDays !== null ? expectedDeliveryDays+' Days' : '-' }</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Expected Delivery Date</th>
+                                            <td>${ expectedDeliveryDate }</td>
                                         </tr>
                                     </table>
                                 </div>`;
